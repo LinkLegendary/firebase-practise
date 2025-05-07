@@ -11,86 +11,45 @@ import {
 
 } from "firebase/auth";
 
+
+
 function App() {
 
-const [user, setUser] = React.useState({})
-const [loading, setloading] = React.useState(true);
+  const [user, setUser] = React.useState({})
+  const [loading, setloading] = React.useState(true);
+   
 
-function updatePost(){
-  const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
-  const postRef =  doc(db, "posts", hardcodedId );
-  const newPost = {
-    description: "Finish Frontend Simplified",
-    uid: "1",
-    title: "Land a $7700k job"
-  }
-  updateDoc(postRef, newPost);
-}
+  function register() {
+        console.log("refister");
+        createUserWithEmailAndPassword(auth, "email@email3.com", "test123")
+          .then((user) => {
+            console.log(user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        }
+    
 
-
-async function updatePost(){
-  const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
-  const postRef =  doc(db, "posts", hardcodedId );
-  const post = await getPostById(hardcodedId)
-  console.log(post);
-  const newPost = {
-    ...post, 
-    title: "Land a $5500k job",
-  };
-  console.log(newPost);
-  updateDoc(postRef, newPost);
-}
-
-
-
-function deletePost(){
-  const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
-  const postRef =  doc(db, "posts", hardcodedId );
-  deleteDoc(postRef);
-}
+    function login(){
+      signInWithEmailAndPassword(auth, "email@email3.com", "test123")
+      .then(({ user }) => {
+        console.log(user);
+        setUser(user)
+        
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    }
 
 
 
-
-
-
-
-function createPost(){
-   const post = {
-    title: "Finish Interview Section",
-    description: "Do Frontend Simplified",
-    uid: user.uid,
-   };
-   addDoc(collection(db, "posts"), post)
-}
-
- async function getAllPosts(){
-  const {docs} = await getDocs(collection(db, "posts"));
-  // const post = docs.map(elem => elem.data())
-  const post = docs.map((elem) => ({...elem.data(), id:elem.id  }))
-  console.log(post);
-
-}
-
-async function getPostById(id){
-  // const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
-  // const postRef =  doc(db, "posts", hardcodedId );
-
-  // const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
-  const postRef =  doc(db, "posts", id );
-  const postSnap = await getDoc(postRef);
-    const post = postSnap.data();
-  console.log(post);
-}
-
-async function getPostByUid(){
-   const postCollectionRef = await query(
-     collection(db, "posts"), 
-      where("uid", "==", "1" )
-        );
-const {docs} = await getDocs(postCollectionRef);
-        console.log(docs.map(doc => doc.data()));
-} 
+    function logout(){
+        signOut(auth)
+        console.log(auth)
+        setUser({})
+    }
 
 
 
@@ -105,36 +64,232 @@ React.useEffect(() => {
 },[]);
 
 
-  function register() {
-    console.log("refister");
-    createUserWithEmailAndPassword(auth, "email@email.com", "test123")
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
+function createPost(){
+   const post = {
+    
+    title: "check one Interview Section 22 hello ",
+    description: "Do me Frontend Simplified  22",
+    uid: user.uid,
+   };
+  
+   addDoc(collection(db, "posts"),  post);
+}
+
+
+ async function getAllPosts(){
+const {docs} = await getDocs(collection(db, "posts"));
+  // const post = docs.map(elem => elem.data())
+  const post = docs.map((elem) => ({...elem.data(), id:elem.id  }))
+  console.log(post);
+
+}
+
+
+
+
+
+
+async function getPostById(){
+  const hardcodedId = "SiTzI7LsQ7AoBp33EHrP"
+  const postRef =  doc(db, "posts", hardcodedId );
+ 
+  
+
+
+  // const postRef =  doc(db, "posts", id );
+  const postSnap = await getDoc(postRef);
+    const post = postSnap.data();
+  console.log(post);
+}
+
+
+
+
+async function getPostByUid(){
+   const postCollectionRef = await query(
+     collection(db, "posts"), 
+      where("uid", "==", user.uid )
+        );
+ 
+
+
+const {docs} = await getDocs(postCollectionRef);
+   console.log(docs);
+
+        // console.log(docs.map(doc => doc.data()));
+} 
+
+
+
+// function updatePost(){
+//   const hardcodedId = "5WdagndMfYHY9YmHzEAv"
+//   const postRef =  doc(db, "posts", hardcodedId );
+//   const newPost = {
+//     description: "Finish Frontend Simplified",
+//     uid: "2",
+//     title: "Land a $7700k hello job"
+//   }
+//   updateDoc(postRef, newPost);
+// }
+
+
+
+
+async function updatePost(){
+  const hardcodedId = "5WdagndMfYHY9YmHzEAv"
+  const postRef =  doc(db, "posts", hardcodedId );
+  const post = await getPostById(hardcodedId)
+  console.log(post);
+  const newPost = {
+    ...post, 
+    title: "Land a $123400k job",
+  };
+  console.log(newPost);
+  updateDoc(postRef, newPost);
+}
+
+
+
+
+function deletePost(){
+  const hardcodedId = "5WdagndMfYHY9YmHzEAv"
+  const postRef =  doc(db, "posts", hardcodedId );
+  deleteDoc(postRef);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// const [user, setUser] = React.useState({})
+// const [loading, setloading] = React.useState(true);
+
+// function updatePost(){
+//   const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
+//   const postRef =  doc(db, "posts", hardcodedId );
+//   const newPost = {
+//     description: "Finish Frontend Simplified",
+//     uid: "1",
+//     title: "Land a $7700k job"
+//   }
+//   updateDoc(postRef, newPost);
+// }
+
+
+// async function updatePost(){
+//   const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
+//   const postRef =  doc(db, "posts", hardcodedId );
+//   const post = await getPostById(hardcodedId)
+//   console.log(post);
+//   const newPost = {
+//     ...post, 
+//     title: "Land a $5500k job",
+//   };
+//   console.log(newPost);
+//   updateDoc(postRef, newPost);
+// }
+
+
+
+// function deletePost(){
+//   const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
+//   const postRef =  doc(db, "posts", hardcodedId );
+//   deleteDoc(postRef);
+// }
+
+
+
+
+
+
+
+// function createPost(){
+//    const post = {
+//     title: "Finish Interview Section  ",
+//     description: "Do Frontend Simplified",
+//     uid: user.uid,
+//    };
+//    addDoc(collection(db, "posts"), post)
+// }
+
+//  async function getAllPosts(){
+//   const {docs} = await getDocs(collection(db, "posts"));
+//   // const post = docs.map(elem => elem.data())
+//   const post = docs.map((elem) => ({...elem.data(), id:elem.id  }))
+//   console.log(post);
+
+// }
+
+// async function getPostById(id){
+//   // const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
+//   // const postRef =  doc(db, "posts", hardcodedId );
+
+//   // const hardcodedId = "I9uE4ipDBRLHuLiCP60g"
+//   const postRef =  doc(db, "posts", id );
+//   const postSnap = await getDoc(postRef);
+//     const post = postSnap.data();
+//   console.log(post);
+// }
+
+// async function getPostByUid(){
+//    const postCollectionRef = await query(
+//      collection(db, "posts"), 
+//       where("uid", "==", "1" )
+//         );
+// const {docs} = await getDocs(postCollectionRef);
+//         console.log(docs.map(doc => doc.data()));
+// } 
+
+
+
+// React.useEffect(() => {
+//  onAuthStateChanged(auth,(user) => {
+//   // console.log(user)
+//   setloading(false)
+//   if (user) {
+//     setUser(user)
+//   }
+//  } )
+// },[]);
+
+
+//   function register() {
+//     console.log("refister");
+//     createUserWithEmailAndPassword(auth, "email@email.com", "test123")
+//       .then((user) => {
+//         console.log(user);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//     }
 
     
 
-    function login(){
-      signInWithEmailAndPassword(auth, "email@email.com", "test123")
-      .then(({ user }) => {
-        console.log(user);
-        setUser(user)
+//     function login(){
+//       signInWithEmailAndPassword(auth, "email@email.com", "test123")
+//       .then(({ user }) => {
+//         console.log(user);
+//         setUser(user)
         
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-    }
+//       })
+//       .catch((error) => {
+//         console.log(error.message);
+//       });
+//     }
 
-    function logout(){
-        signOut(auth)
-        console.log(auth)
-        setUser({})
-    }
+//     function logout(){
+//         signOut(auth)
+//         console.log(auth)
+//         setUser({})
+//     }
 
 
 
